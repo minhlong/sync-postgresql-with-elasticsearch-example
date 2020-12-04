@@ -139,8 +139,18 @@ Mô hình cuối cùng của hệ thống sẽ như sau:
 - Không dùng CDC có được không ?
 - Không dùng ZooKeeper có được không ?
 
+## Errors
+```
+# Fix Docker Elastic Search error when starting
+$ docker-compose logs elasticsearch
+$ sudo sysctl -w vm.max_map_count=262144
+```
+
 ## References
 - https://github.com/YegorZaremba/sync-postgresql-with-elasticsearch-example
 - https://dev.to/thiagosilvaf/how-to-use-change-database-capture-cdc-in-postgres-37b8
 - https://www.confluent.io/blog/bottled-water-real-time-integration-of-postgresql-and-kafka/
 - https://vladmihalcea.com/how-to-extract-change-data-events-from-mysql-to-kafka-using-debezium/
+- [Simple config consumer and producer](https://kafka-tutorials.confluent.io/kafka-console-consumer-producer-basics/kafka.html)
+- [Sink config options](https://docs.confluent.io/kafka-connect-jdbc/current/sink-connector/sink_config_options.html)
+- [Confluent transform](https://docs.confluent.io/platform/current/connect/transforms/overview.html)

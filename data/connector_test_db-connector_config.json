@@ -1,0 +1,19 @@
+{
+  "name": "test_db-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "transforms": "key, route",
+    "transforms.key.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+    "transforms.key.field": "id",
+    "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+    "transforms.route.replacement": "$1.test_db.$3",
+    "database.server.name": "socialhead_shop",
+    "database.hostname": "postgres",
+    "database.user": "postgres",
+    "database.password": "postgres",
+    "database.dbname": "test_db",
+    "column.exclude.list": "public.comments.body",
+    "table.include.list": "public.comments"
+  }
+}
