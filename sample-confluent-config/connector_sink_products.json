@@ -1,0 +1,22 @@
+{
+  "name": "elasticsearch-products",
+  "config": {
+    "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+    "transforms": [
+      "route",
+      "unwrap",
+      "ValueToKey"
+    ],
+    "topics": "socialhead_shop.test_db.ss_products",
+    "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+    "transforms.route.replacement": "$3",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.drop.tombstones": "false",
+    "transforms.ValueToKey.type": "org.apache.kafka.connect.transforms.ValueToKey",
+    "transforms.ValueToKey.fields": "id,shop_id",
+    "connection.url": "http://elasticsearch:9200",
+    "type.name": "_doc",
+    "behavior.on.null.values": "delete"
+  }
+}

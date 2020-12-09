@@ -1,17 +1,19 @@
 {
-  "name": "elasticsearch-connector",
+  "name": "elasticsearch-feed-products",
   "config": {
     "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
-    "transforms": "route, unwrap, ReplaceField",
-    "topics": "socialhead_shop.test_db.comments",
+    "transforms": [
+      "route",
+      "unwrap"
+    ],
+    "topics": "socialhead_shop.test_db.ss_feed_products",
     "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
     "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
     "transforms.route.replacement": "$3",
     "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
     "transforms.unwrap.drop.tombstones": "false",
-    "transforms.ReplaceField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
-    "transforms.ReplaceField.blacklist": "post_id",
     "connection.url": "http://elasticsearch:9200",
-    "type.name": "_doc"
+    "type.name": "_doc",
+    "behavior.on.null.values": "delete"
   }
 }
