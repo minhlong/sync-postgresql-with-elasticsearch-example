@@ -10,7 +10,7 @@ FireApps Gia Trang vốn là bản doanh của các thương nhân lớn nhỏ, 
 
 ## Đặt Vấn Đề
 
-![alt](./screenshots/1.png)
+![alt](./screenshots/1-0-problem.png)
 
 Hiện tại, tại hạ đang có 1 hệ thống (web application) để lưu trữ và xử lý dữ liệu như mô hình bên trên. Nhưng với mô hình này, chúng mình bị gặp rất nhiều vấn đề về xử lý Big Data.
 - Đồng bộ hóa dữ liệu.
@@ -45,11 +45,11 @@ Sau một hồi google thì mình biết đến 2 thứ:
 
 > Change Data Capture: Theo mình hiểu thì các hệ quản trị cơ sở dữ liệu như MySQL, PostgreSQL, Mongo... đều có chế ghi log khi tương tác với dữ liệu. Ví dụ: Redo Log (e.g. Oracle), Binary Log (e.g. MySQL), or Write-Ahead Logs (e.g. PostgreSQL). Change Data Capture dựa vào các log file này để transfer data đến các service khác.
 
-![alt](./screenshots/cdc.png)
+![alt](./screenshots/1-1-cdc.png)
 
 > `Kafka` Service hoạt động giống như chat room vậy, có `producer` đống vai trò như như người gởi, và consumer đóng vai trò như người nhận thư, các `topic` đóng vai trò như các phòng chat, và `data` đóng vai trò như message gởi đi vậy.
 
-![alt](./screenshots/kafka.jpg)
+![alt](./screenshots/1-2-kafka.jpg)
 
 > Các bạn chịu khó google xíu về Debezium, Kafka, ZooKeeper , ElasticSearch heng, mình không ghi ở đây vì rất dài và đỡ loãng bài.
 
@@ -59,13 +59,13 @@ Dựa vào cơ chế CDC và Kafa trên thì ta có mô hình như bên dưới.
 
 Khi CDC bắt được các log thay đổi sẽ đẩy dữ liệu này đến Kafka service, và Kafka khi nhận được các trigger event sẽ đẩy đến các consumer (streaming - realtime).
 
-![alt](./screenshots/basic.png)
+![alt](./screenshots/1-3-kafka-basic.png)
 
 Yeah... Vậy là done rồi, việc giờ chúng ta cần làm viết các lớp Producer/Consumer thôi, hay nói đúng hơn là các `connector` services. Nhưng thật may mắn, vì trên thế gian đã có các anh hùng bàn phím viết sẵn rồi, mình chỉ việc dùng thôi. Đơn cử chúng ta có Debezium. 
 
 `Debezium` là một dự án mã nguồn mở của RedHead, nó cho phép chúng ta triết xuất dữ liệu với cơ chế CDC và chuyển hóa đến Kafa service. Hoặc transform dữ liệu từ kafka đến các processing service thông qua `topic`.
 
-![alt](./screenshots/DebeziumArchitecture.png)
+![alt](./screenshots/1-4-debezium.png)
 
 ### Connector Config Demo
 ```sh
@@ -132,7 +132,7 @@ Mô hình cuối cùng của hệ thống sẽ như sau:
 - Ưu: Không có gì để bản.
 - Nhược: Phải config khá nhiều thứ.
 
-![alt](./screenshots/final.png)
+![alt](./screenshots/1-5-debezium-kafka.png)
 
 ## Kết Mở
 - Nếu không dùng Kafka có được không ?
