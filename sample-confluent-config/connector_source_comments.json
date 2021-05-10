@@ -2,7 +2,10 @@
   "name": "test_db-connector",
   "config": {
     "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-    "transforms": "key, route",
+    "transforms": [
+      "key",
+      "route"
+    ],
     "transforms.key.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
     "transforms.key.field": "id",
     "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
